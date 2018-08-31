@@ -1,0 +1,14 @@
+CREATE TABLE dump_table(no INT, text VARCHAR(255), insert_date datetime)
+
+Insert Into dump_table(no, text, insert_date) VALUES (1, 'dump_test', getdate())
+
+DECLARE @NUM INT
+SET @NUM = 1
+
+BEGIN
+while @NUM < 10000
+	BEGIN
+		Insert Into dump_table(no, text, insert_date) VALUES ((SELECT MAX(no)+1 FROM dump_table), 'dump_test', getdate())
+		SET @NUM = @NUM+1
+END
+	END
